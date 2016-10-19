@@ -25,9 +25,8 @@ this is a image recognition framework, based on tflearn (tensorflow-learn) and G
    
 4. After you are satisfied with the training result, you could start the Flask server by `python3 app.py`, fill in the new picture you want to classify and submit, you will get prediction result like this:
 
-![webapp.png](a3)
+![webapp.png](webapp.png)
 
 
 [a1]: https://github.com/tflearn/tflearn/blob/master/examples/images/googlenet.py
 [a2]: http://www.robots.ox.ac.uk/~vgg/data/flowers/17/
-[a3]: webapp.png
