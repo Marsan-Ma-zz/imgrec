@@ -30,3 +30,12 @@ this is a image recognition framework, based on tflearn (tensorflow-learn) and G
 
 [a1]: https://github.com/tflearn/tflearn/blob/master/examples/images/googlenet.py
 [a2]: http://www.robots.ox.ac.uk/~vgg/data/flowers/17/
+
+
+
+
+## Params
+
+If you have more than one project to share your GPU memory, you could reduce the GPU memory usage by changing the `gpu_memory_fraction` in `imgrec.py` to, like 0.5 for 2 projects or 0.3 for 3 projects to share your computing resource.
+
+

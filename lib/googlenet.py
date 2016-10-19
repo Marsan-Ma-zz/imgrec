@@ -29,7 +29,7 @@ from lib import data_util
 
 class GoogLeNet(object):
 
-    def __init__(self, img_size=227, label_size=17, gpu_memory_fraction=0.5, scope_name='17flowers'):
+    def __init__(self, img_size=227, label_size=17, gpu_memory_fraction=1.0, scope_name='17flowers'):
         # ctrl
         self.img_size = img_size
         self.label_size = label_size
