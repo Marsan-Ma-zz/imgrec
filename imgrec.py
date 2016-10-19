@@ -14,7 +14,7 @@ import tflearn.datasets.oxflower17 as oxflower17
 # scope_name, label_size = '17flowers', 17
 scope_name, label_size = '17portraits', 9
 
-gnet = GoogLeNet(img_size=227, label_size=label_size, gpu_memory_fraction=1.0, scope_name=scope_name)
+gnet = GoogLeNet(img_size=227, label_size=label_size, gpu_memory_fraction=0.4, scope_name=scope_name)
 down_sampling = {str(n): 10000 for n in range(13)}
 pkl_files = gnet.get_data(dirname=scope_name, down_sampling=down_sampling)
 
