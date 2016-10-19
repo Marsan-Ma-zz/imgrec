@@ -1,0 +1,59 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ImgRec</title>
+</head>
+<style type="text/css">
+body{margin:0;padding:0; font-size:13px; line-height:150%; color:#666666}
+a:hover {text-decoration: none; color:#39F}
+a{text-decoration: none;color:#113d93}
+#box{ width:95%; margin:40px auto}
+#box2{ margin-left:20px}
+#tit{font-size:22px; border-bottom:#888888 1px solid; padding-bottom:13px; font-weight:bold; margin-bottom:15px; color:#000000}
+#list{font-size:15px;font-weight:bold;color:#000000}
+table, th, td {
+  border: 1px solid black;
+}
+th, td {
+  padding: 1px 5px;
+}
+</style>
+<body leftmargin="0" topmargin="0">
+    <div id="box">
+        <h1>Image Recognition</h1>
+
+        <form action="/">
+          Url:
+          <br>
+          <input type="text" name="url" value='{{ url }}' style='width: 400px'>
+          <input type="submit" value="Submit" style='background-color: aliceblue;'>
+        </form>
+
+        {% if cnts %}
+            <h2>Expected class: <b style='color: red'>{{ cnt }}</b></h2>
+        {% endif %}
+
+        {% if probs %}
+          <table style="margin: 10px 0; float: left;">
+            <tr>
+              <th>Label</th>
+              <th>Prob.</th>
+            </tr>
+            {% for row in probs %}
+              <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}%</td>
+              </tr>
+            {% endfor %}
+          </table>
+        {% endif %}
+
+        {% if url %}
+          <img src="{{ url }}" style="max-width: 200px; max-height: 200px; float: left; margin: 10px;">
+        {% endif %}
+        
+    </div>
+</body>
+</html>

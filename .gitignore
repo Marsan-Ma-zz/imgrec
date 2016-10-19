@@ -1,0 +1,10 @@
+sftp-config.json
+*.pyc
+works/*
+images/*
+go_*
+*.yaml
+ssl/*
+dump.py
+ref
+
