@@ -5,6 +5,6 @@ images/*
 go_*
 *.yaml
 ssl/*
-dump.py
+dump_17portraits.py
 ref
 
