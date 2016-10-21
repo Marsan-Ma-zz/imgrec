@@ -88,7 +88,7 @@ For your own dataset, be sure to modify these two arguments for both `train.py` 
 
 
 
-## Modulized model object
+## Modularized model object
 
 Here we wrap up the GoogLeNet as a class in `lib/googlenet.py`. It will automatically find your latest trained model in `model/<YOUR_PROJECT_NAME>` as you instance an object of it.
 
@@ -100,7 +100,7 @@ Besides the network, there are following functions attached to it:
 
 ## The training process explaination
 
-It's pretty simple, let's go through [imgrec.py][e1].
+It's pretty simple, let's go through [train.py][e1].
 
 ```
 scope_name, label_size = '17flowers', 17
@@ -131,7 +131,7 @@ for f in pkl_files:
     gnet.fit(X, Y, n_epoch=10)    
 ```
 
-[e1]: https://github.com/Marsan-Ma/imgrec/blob/master/imgrec.py
+[e1]: https://github.com/Marsan-Ma/imgrec/blob/master/train.py
 [e2]: https://arxiv.org/pdf/1505.01257.pdf
 [e3]: https://github.com/Marsan-Ma/imgrec/blob/master/lib/data_util.py#L786
 
