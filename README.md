@@ -36,14 +36,20 @@ This is an image recognition framework based on [tflearn][a1] (tensorflow-learn)
     Each folder (0 to 16) contains samples of one label in dataset.
    ```
 
-2. Then just type `python3 imgrec.py` to train the model, the latest models will be saved in `models/<DATASET_NAME>`. If training process is interrupted, it will find and restore the latest trained model from this folder.
+2. Then could start the training like the following example, which trains the 17flowers model, which we have 17 labels in this dataset.
+
+```
+python3 train.py --model_name 17flowers --label_size 17
+```
+
+The latest models will be saved in `models/<DATASET_NAME>`. If training process is interrupted, it will find and restore the latest trained model from this folder.
    
    
 ## A minimal demo server
 
 After you are satisfied with the training result, you could try to predicting by the Flask server. 
 
-```python3 app.py```
+```python3 app.py --model_name 17flowers --label_size 17```
 
 Then open your browser, go [http://localhost:8883](). Fill in the new picture you want to classify and submit, you will get prediction result like this:
 
@@ -63,7 +69,7 @@ In the original tflearn example, all the samples are loaded to memory in single 
 
 Fortunately, we don't need to. The Convolution neural network, like most of neural network models, are trained in online learning optimizers like [SGD][c1], [Adam][c2], [FTRL][c2]...etc. They actually only process 1 sample at a time, then we could discard it and load another.
 
-In this repository I've modified the data_util that it will resize the original images and cache them into pickle files, each with 500 images only. And in the training procedure it will load 500 images to do a mini-batch at a time, then discard them and load another mini-batch. So, no matter how large your original sample volumn, this make sure your machine could work.
+In this repository I've modified the `data_util.py` that it will resize the original images and cache them into pickle files, each with 500 images only. And in the training procedure it will load 500 images to do a mini-batch at a time, then discard them and load another mini-batch. So, no matter how large your original sample volumn, this make sure your machine could work.
 
 [c1]: https://www.tensorflow.org/versions/r0.11/api_docs/python/train.html#GradientDescentOptimizer
 [c2]: https://www.tensorflow.org/versions/r0.11/api_docs/python/train.html#AdamOptimizer
@@ -71,9 +77,9 @@ In this repository I've modified the data_util that it will resize the original 
 
 ## Parameters to change, for different datasets
 
-For your own dataset, be sure to modify these two parameters in `imgrec.py`:  
+For your own dataset, be sure to modify these two arguments for both `train.py` and `app.py`.
 
-1. `scope_name`: this is your dataset name, and it shall be consist with your dataset path in `images/<scope_name>`, and the model will be generated in `models/<scope_name>` accordingly.
+1. `model_name`: this is your dataset name, and it shall be consist with your dataset path in `images/<model_name>`, and the model will be generated in `models/<model_name>` accordingly.
 
 2. `label_size`: for example, in the [17 flowers datasets][b1] there are 17 kinds of different flowers to classify, thus the `label_size = 17`. You should modify this number according to your application.
 
@@ -87,9 +93,9 @@ For your own dataset, be sure to modify these two parameters in `imgrec.py`:
 Here we wrap up the GoogLeNet as a class in `lib/googlenet.py`. It will automatically find your latest trained model in `model/<YOUR_PROJECT_NAME>` as you instance an object of it.
 
 Besides the network, there are following functions attached to it:  
-1. fit: do the training  
-2. predict: do the predicting  
-3. get_data: it only fetch data cache names
+1. `fit`: do the training  
+2. `predict`: do the predicting  
+3. `get_data`: fetch all data cache names of certain dataset
 
 
 ## The training process explaination
@@ -122,8 +128,7 @@ Finally, train them one-by-one.
 ```
 for f in pkl_files:
     X, Y = pickle.load(gzip.open(f, 'rb'))
-    gnet.fit(X, Y, n_epoch=10)
-    
+    gnet.fit(X, Y, n_epoch=10)    
 ```
 
 [e1]: https://github.com/Marsan-Ma/imgrec/blob/master/imgrec.py
@@ -131,7 +136,7 @@ for f in pkl_files:
 [e3]: https://github.com/Marsan-Ma/imgrec/blob/master/lib/data_util.py#L786
 
 
-## Is this work for face-detection? Like Facebook did.
+## Is this work for face-detection?
 
 
 Face detection application got some better choices. Since human face has a similar pattern even for different race and gender, face detection application could largely benefit from these clues. 

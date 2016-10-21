@@ -29,16 +29,16 @@ from lib import data_util
 
 class GoogLeNet(object):
 
-    def __init__(self, img_size=227, label_size=17, gpu_memory_fraction=1.0, scope_name='17flowers'):
+    def __init__(self, args):
         # ctrl
-        self.img_size = img_size
-        self.label_size = label_size
-        self.scope_name = scope_name
-        self.gpu_memory_fraction = gpu_memory_fraction
+        self.img_size = args.img_size
+        self.label_size = args.label_size
+        self.model_name = args.model_name
+        self.gpu_usage = args.gpu_usage
 
         # net
-        tflearn.config.init_graph(gpu_memory_fraction=self.gpu_memory_fraction)
-        network = input_data(shape=[None, img_size, img_size, 3])
+        tflearn.config.init_graph(gpu_memory_fraction=self.gpu_usage)
+        network = input_data(shape=[None, self.img_size, self.img_size, 3])
         conv1_7_7 = conv_2d(network, 64, 7, strides=2, activation='relu', name = 'conv1_7_7_s2')
         pool1_3_3 = max_pool_2d(conv1_7_7, 3,strides=2)
         pool1_3_3 = local_response_normalization(pool1_3_3)
@@ -151,12 +151,12 @@ class GoogLeNet(object):
         pool5_7_7 = dropout(pool5_7_7, 0.4)
 
         # output stage
-        loss = fully_connected(pool5_7_7, label_size ,activation='softmax')
+        loss = fully_connected(pool5_7_7, self.label_size ,activation='softmax')
         network = regression(loss, optimizer='momentum',
                              loss='categorical_crossentropy',
                              learning_rate=0.001)
 
-        model_path = 'models/%s' % self.scope_name
+        model_path = 'models/%s' % self.model_name
         if not os.path.exists(model_path): os.makedirs(model_path)
         self.model = tflearn.DNN(network, checkpoint_path=model_path+'/model',
                         max_checkpoints=3, tensorboard_verbose=2)
@@ -185,7 +185,7 @@ class GoogLeNet(object):
         print("fit data dim: X=%s, Y=%s" % (np.shape(X), np.shape(Y)))
         self.model.fit(X, Y, n_epoch=n_epoch, validation_set=0.1, shuffle=True,
                   show_metric=True, batch_size=32, snapshot_step=200,
-                  snapshot_epoch=True, run_id=self.scope_name)
+                  snapshot_epoch=True, run_id=self.model_name)
         
 
 

@@ -9,15 +9,17 @@ from flask import Flask, request, render_template
 from random import random, choice
 
 from lib import data_util
+from lib.config import params_setup
 from lib.googlenet import GoogLeNet
 
 
 app = Flask(__name__)
 
 # model
-scope_name, label_size = '17flowers', 17
+# scope_name, label_size = '17flowers', 17
 # scope_name, label_size = '17portraits', 9
-gnet = GoogLeNet(img_size=227, label_size=label_size, gpu_memory_fraction=0.4, scope_name=scope_name)
+args = params_setup()
+gnet = GoogLeNet(args=args)
 
 
 #---------------------------
