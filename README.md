@@ -11,7 +11,7 @@ This is an image recognition framework based on [tflearn][a1] (tensorflow-learn)
 ## Just tell me how to Use
 
 1. Arrange your own data set in `images/<DATASET_NAME>/<LABEL_NAME>`
-2. For example, you could do `python3 dump_17flowers.py` to download  the example dataset [17 Category Flower Dataset][b1] from Oxford university. The data hierarchy see the folders hierarchy like this:
+2. For example, you could do `python3 dump_17flowers.py` to download  the example dataset [17 Category Flower Dataset][b1] from Oxford university. Then you may find the data hierarchy like this:
    
    ```
     images  
@@ -37,7 +37,7 @@ This is an image recognition framework based on [tflearn][a1] (tensorflow-learn)
     Each folder (0 to 16) contains samples of one label in dataset.
    ```
 
-3. Then just type `python3 imgrec.py` to train the model, the latest models will be saved in `models/<DATASET_NAME>`. If training process is interrupt, it will find and restore the latest trained model from this folder.
+3. Then just type `python3 imgrec.py` to train the model, the latest models will be saved in `models/<DATASET_NAME>`. If training process is interrupted, it will find and restore the latest trained model from this folder.
    
    
 ## A minimal demo server

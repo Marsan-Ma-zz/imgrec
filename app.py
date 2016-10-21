@@ -15,9 +15,9 @@ from lib.googlenet import GoogLeNet
 app = Flask(__name__)
 
 # model
-scope_name = '17portraits'
-label_size = 9
-gnet = GoogLeNet(img_size=227, label_size=label_size, scope_name=scope_name)
+scope_name, label_size = '17flowers', 17
+# scope_name, label_size = '17portraits', 9
+gnet = GoogLeNet(img_size=227, label_size=label_size, gpu_memory_fraction=0.4, scope_name=scope_name)
 
 
 #---------------------------
@@ -55,5 +55,5 @@ def url2sample(url, resize=(227, 227)):
 #   Start Server
 #---------------------------
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8883, debug=True)
+    app.run(host='0.0.0.0', port=8883, debug=False)
 
