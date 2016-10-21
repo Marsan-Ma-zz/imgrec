@@ -46,9 +46,12 @@ After you are satisfied with the training result, start the Flask server by `pyt
 
 ![webapp.png][b2]
 
+Here is a picture of flower from 17flowers data in label 5. The predicted result has 62.8% confidence that this sample is in label 5, which is a correct prediction.
+
+The image recognition model usually accept only 1 size of sample, here we resize any input picture to 227x227 pixels internally. So you could use picture in any size.
 
 [b1]: http://www.robots.ox.ac.uk/~vgg/data/flowers/17/
-[b2]: https://raw.githubusercontent.com/Marsan-Ma/imgrec/master/webapp.png
+[b2]: https://raw.githubusercontent.com/Marsan-Ma/imgrec/master/doc/webapp.png
 
 
 ## Detail explaination about data pipeline
