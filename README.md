@@ -10,8 +10,7 @@ This is an image recognition framework based on [tflearn][a1] (tensorflow-learn)
 
 ## Just tell me how to Use
 
-1. Arrange your own data set in `images/<DATASET_NAME>/<LABEL_NAME>`
-2. For example, you could do `python3 dump_17flowers.py` to download  the example dataset [17 Category Flower Dataset][b1] from Oxford university. Then you may find the data hierarchy like this:
+1. Arrange your own data set in `images/<DATASET_NAME>/<LABEL_NAME>` as following example. You could use `python3 dump_17flowers.py` to download the example dataset [17 Category Flower Dataset][b1] from Oxford university, which you could find the data hierarchy like this:
    
    ```
     images  
@@ -37,18 +36,22 @@ This is an image recognition framework based on [tflearn][a1] (tensorflow-learn)
     Each folder (0 to 16) contains samples of one label in dataset.
    ```
 
-3. Then just type `python3 imgrec.py` to train the model, the latest models will be saved in `models/<DATASET_NAME>`. If training process is interrupted, it will find and restore the latest trained model from this folder.
+2. Then just type `python3 imgrec.py` to train the model, the latest models will be saved in `models/<DATASET_NAME>`. If training process is interrupted, it will find and restore the latest trained model from this folder.
    
    
 ## A minimal demo server
 
-After you are satisfied with the training result, start the Flask server by `python3 app.py`. Then open your browser, go [http://localhost:8883](). Fill in the new picture you want to classify and submit, you will get prediction result like this:
+After you are satisfied with the training result, you could try to predicting by the Flask server. 
+
+```python3 app.py```
+
+Then open your browser, go [http://localhost:8883](). Fill in the new picture you want to classify and submit, you will get prediction result like this:
 
 ![webapp.png][b2]
 
-Here is a picture of flower from 17flowers data in label 5. The predicted result has 62.8% confidence that this sample is in label 5, which is a correct prediction.
+Here is a picture of flower from 17flowers data in label 5. The predicted result has 62.8% confidence that it's label 5, which is a correct prediction.
 
-The image recognition model usually accept only 1 size of sample, here we resize any input picture to 227x227 pixels internally. So you could use picture in any size.
+The image recognition network have fixed input size. here we resize any input picture to 227x227 pixels internally, so you could use picture in any size both in training and testing.
 
 [b1]: http://www.robots.ox.ac.uk/~vgg/data/flowers/17/
 [b2]: https://raw.githubusercontent.com/Marsan-Ma/imgrec/master/doc/webapp.png
@@ -89,7 +92,7 @@ Besides the network, there are following functions attached to it:
 3. get_data: it only fetch data cache names
 
 
-## The training process 
+## The training process explaination
 
 It's pretty simple, let's go through [imgrec.py][e1].
 
@@ -128,12 +131,19 @@ for f in pkl_files:
 [e3]: https://github.com/Marsan-Ma/imgrec/blob/master/lib/data_util.py#L786
 
 
-## Is this good for face-detection? Like Facebook did.
+## Is this work for face-detection? Like Facebook did.
 
 
-I thought face detection application got some better choices. Since human face has a formal pattern even for different race and gender, face detection application could largely benefit from these clues. 
+Face detection application got some better choices. Since human face has a similar pattern even for different race and gender, face detection application could largely benefit from these clues. 
 
-Here is a very good [tutorial][f1] about how to make good use of these human face characteristics. The main idea is to find the **HOG (histogram of gradient)** of a each face, which we could consider it as the embedding vector of the face. Then we could easily use k-nearest-neighborhood to find photos alike, tag them as one person.
+Here is a very good [tutorial][f1] about how to make good use of these human face characteristics. The main idea is to find the **HOG (histogram of gradient)** (in followering figure) of a each face, which we could consider it as the embedding vector of the face. Then we could easily use k-nearest-neighborhood to find photos alike, tag them as one person.
+
+And this has nothing to do with neural network or CNN.
+
+![face detection][f2]
 
 [f1]: https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.de4b1brjz
+[f2]: https://cdn-images-1.medium.com/max/1600/1*6xgev0r-qn4oR88FrW6fiA.png
+
+
 
